@@ -35,9 +35,22 @@ app.get ('/', (req, res) => {
 //     }
 //     console.log(row);
 // });
-// db.query(`SELECT*FROM candidates`,(err,rows)=> {
-//     console.log (rows);
-// });
+
+//Get all candidates
+app.get('/api/candidates',(req,res)=> {
+    const sql =`SELECT*FROM candidates`;
+
+db.query(sql ,(err,rows)=> {
+    if (err){
+        res.status(500).json ({ error:err.message});
+        return;
+    } 
+    res.json({
+        message:'success',
+        data: rows
+    });
+});
+});
 
 //Delete a candidte
 // db.query(`DELETE FROM candidates WHERE id=?`,1, (err ,result)=> {
@@ -49,15 +62,15 @@ app.get ('/', (req, res) => {
 
 //Create a candidate
 
-    const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected)
-        VALUES (?,?,?,?)`;
-    const params =[1, 'Ronald','Firbank',1];
-    db.query(sql, params, (err, result)=> {
-        if (err) {
-            console.log(err);
-        }
-        console.log(result);
-});
+//     const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected)
+//         VALUES (?,?,?,?)`;
+//     const params =[1, 'Ronald','Firbank',1];
+//     db.query(sql, params, (err, result)=> {
+//         if (err) {
+//             console.log(err);
+//         }
+//         console.log(result);
+// });
 
 //default response for any other request (not found)
 
